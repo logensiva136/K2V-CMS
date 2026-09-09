@@ -1,5 +1,5 @@
 (function(){
-  var raw;try{raw=localStorage.getItem('k2v_cms_content')}catch(e){return}
+  var raw;try{raw=localStorage.getItem('k2v_site_content')}catch(e){return}
   if(!raw)return;
   var d;try{d=JSON.parse(raw)}catch(e){return}
   if(!d||!d.site)return;
