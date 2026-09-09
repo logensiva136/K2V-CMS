@@ -1,192 +1,315 @@
 {
-  "version": 4,
-  "updatedAt": null,
-  "site": {
-    "name": "K2V ENTERPRISE",
-    "legalName": "K2V Enterprise",
-    "mark": "K2V",
-    "tagline": "Your one-stop solution for industrial materials, equipment, office furniture and stationery",
-    "intro": "Packaging, industrial tapes, cleanroom consumables, safety wear, office furniture and stationery — sourced, stocked and delivered across Kulim and Penang.",
-    "email": "k2venterprise@gmail.com",
-    "phone": "To be confirmed by client",
-    "whatsapp": "",
-    "address": "Kulim, Kedah",
-    "addressNote": "Serving Kulim and Penang — full address to be confirmed by client",
-    "regNo": "Company registration no. to be confirmed",
-    "hours": "Mon–Fri 9:00–18:00 · Sat 9:00–13:00",
-    "footerBlurb": "Industrial materials, packaging, safety equipment, office furniture and stationery supply.",
-    "socials": {
-      "facebook": "",
-      "linkedin": "",
-      "instagram": ""
-    }
+  "version": 5,
+  "theme": {
+    "fontPreset": "modern",
+    "navy": "#123c70",
+    "red": "#e62f37",
+    "ink": "#192b45",
+    "muted": "#6c7b8e",
+    "line": "#e4eaf1",
+    "soft": "#f5f8fb",
+    "pageBg": "#ffffff",
+    "heroTint": "#f4f8fc",
+    "bandBg": "#123c70",
+    "bandInk": "#ffffff",
+    "footerBg": "#0e2d54",
+    "footerInk": "#aebfd3",
+    "radius": 2
   },
-  "home": {
-    "heroEyebrow": "INDUSTRIAL & OFFICE SUPPLY · KULIM & PENANG",
-    "heroTitle": "Everything the production floor runs out of.",
-    "heroBody": "One purchase order instead of nine. K2V Enterprise supplies packaging materials, cleanroom and safety wear, industrial tapes, office furniture and stationery to manufacturers, schools and offices across Kulim and Penang.",
-    "heroCtaLabel": "Request a quote",
-    "heroCtaUrl": "#/contact",
-    "heroCtaAltLabel": "Browse the catalogue",
-    "heroCtaAltUrl": "#/products",
-    "stats": [
+  "identity": {
+    "name": "K2V ENTERPRISE",
+    "logoText": "K2V",
+    "logoImage": "",
+    "sub": "INDUSTRIAL & OFFICE SUPPLY",
+    "topBarLeft": "Welcome to K2V ENTERPRISE",
+    "topBarRight": "Your one-stop solution for industrial materials, equipment, office furniture & stationery"
+  },
+  "nav": {
+    "cta": {
+      "label": "Request a quote",
+      "href": "#contact"
+    },
+    "items": [
       {
+        "id": "n1",
+        "label": "Home",
+        "href": "#/",
+        "show": true
+      },
+      {
+        "id": "n2",
+        "label": "About",
+        "href": "#about",
+        "show": true
+      },
+      {
+        "id": "n3",
+        "label": "Products",
+        "href": "#/products",
+        "show": true
+      },
+      {
+        "id": "n4",
+        "label": "Services",
+        "href": "#services",
+        "show": true
+      },
+      {
+        "id": "n5",
+        "label": "Contact",
+        "href": "#contact",
+        "show": true
+      }
+    ]
+  },
+  "hero": {
+    "eyebrow": "Industrial materials · Office supply · Kulim & Penang",
+    "title": "Everything the floor and the office",
+    "titleEm": "run on.",
+    "body": "K2V ENTERPRISE supplies packaging materials, industrial tapes, safety and cleanroom wear, office furniture and stationery to manufacturers, schools and offices across Kulim and Penang — one supplier, one purchase order.",
+    "primary": {
+      "label": "Browse products",
+      "href": "#/products"
+    },
+    "secondary": {
+      "label": "About K2V",
+      "href": "#about"
+    },
+    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=85",
+    "badgeValue": "9",
+    "badgeText": "supply lines, one account"
+  },
+  "trust": {
+    "items": [
+      {
+        "id": "t1",
         "value": "9",
         "label": "Supply categories"
       },
       {
-        "value": "24h",
-        "label": "Quote turnaround"
+        "id": "t2",
+        "value": "2",
+        "label": "States served — Kulim & Penang"
       },
       {
+        "id": "t3",
         "value": "1",
         "label": "Consolidated invoice"
       },
       {
-        "value": "2",
-        "label": "States — Kulim & Penang"
+        "id": "t4",
+        "value": "Gov + Private",
+        "label": "Sectors supplied"
       }
-    ],
-    "whyTitle": "Why buyers keep the account open",
-    "whyBody": "Procurement teams do not want nine vendors for nine line items. They want one that answers.",
-    "why": [
-      {
-        "title": "Consolidated ordering",
-        "body": "Bubble wrap, gloves, A4 paper and a filing cabinet on one PO, one delivery note, one invoice."
-      },
-      {
-        "title": "Stock you can plan around",
-        "body": "Fast-moving consumables held locally, so a Friday shortage does not stop a Monday shipment."
-      },
-      {
-        "title": "Spec-matched substitutes",
-        "body": "Send us the part you are replacing. We come back with an equivalent and the spec sheet to prove it."
-      },
-      {
-        "title": "Straight answers on lead time",
-        "body": "If an item is four weeks out, you hear four weeks — before the PO, not after."
-      }
-    ],
-    "ctaTitle": "Send us your list. We will price it.",
-    "ctaBody": "Email a BOM, a photo of the old packaging, or just a part number.",
-    "featuredSkus": [
-      "K2V-BW-1000",
-      "K2V-SF-500",
-      "K2V-KT-025",
-      "K2V-CR-JS1"
     ]
   },
-  "nav": [
-    {
-      "id": "n1",
-      "label": "Home",
-      "url": "#/",
-      "showInNav": true
-    },
-    {
-      "id": "n2",
-      "label": "About",
-      "url": "#/page/about-us",
-      "showInNav": true
-    },
-    {
-      "id": "n3",
-      "label": "Products",
-      "url": "#/products",
-      "showInNav": true
-    },
-    {
-      "id": "n4",
-      "label": "News",
-      "url": "#/news",
-      "showInNav": true
-    },
-    {
-      "id": "n5",
-      "label": "Contact",
-      "url": "#/contact",
-      "showInNav": true
+  "about": {
+    "eyebrow": "About K2V ENTERPRISE",
+    "title": "One supplier for the whole floor — and the office",
+    "paragraphs": [
+      "K2V ENTERPRISE offers a wide range of products, mainly for industrial materials supply — production materials, equipment, furniture and stationery. Headquartered in Kulim, we serve customers across Kulim and Penang, supplying educational institutions and industrial companies in both the private and government sectors.",
+      "Our vision: to deliver outstanding service and premium products to our customers with the best quality.",
+      "Our mission: we pledge to satisfy our customers with our products and services, and to work together with our business partners, suppliers and others to our common advantage."
+    ],
+    "image": "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?auto=format&fit=crop&w=900&q=85",
+    "cta": {
+      "label": "Talk to us",
+      "href": "#contact"
     }
-  ],
+  },
+  "supply": {
+    "eyebrow": "What we supply",
+    "title": "Nine supply lines, one account",
+    "link": {
+      "label": "See full catalogue",
+      "href": "#/products"
+    },
+    "featuredCount": 4
+  },
+  "services": {
+    "eyebrow": "How we work",
+    "title": "Supply is the product. These come with it.",
+    "intro": "We consolidate a list spread across several suppliers into one point of contact, one delivery and one invoice.",
+    "items": [
+      {
+        "id": "s1",
+        "num": "01",
+        "title": "Consolidated procurement",
+        "body": "One purchase order across all nine categories, on a single delivery schedule."
+      },
+      {
+        "id": "s2",
+        "num": "02",
+        "title": "Cut-to-size packaging",
+        "body": "Bubble wrap, PE foam and film cut to your carton or pallet size to cut waste."
+      },
+      {
+        "id": "s3",
+        "num": "03",
+        "title": "Stock holding",
+        "body": "Fast-moving consumables held locally so a Friday shortage does not stop a Monday shipment."
+      },
+      {
+        "id": "s4",
+        "num": "04",
+        "title": "Spec matching",
+        "body": "Send the item you are replacing; we return an equivalent with the data sheet."
+      }
+    ]
+  },
+  "sectors": {
+    "eyebrow": "Who we supply",
+    "title": "Trusted across sectors",
+    "items": [
+      "MANUFACTURING",
+      "ELECTRONICS",
+      "SCHOOLS",
+      "GOVERNMENT",
+      "OFFICES"
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Send us your list. We will price it.",
+    "body": "Email a bill of materials, a photo of the packaging you are replacing, or just a part number.",
+    "email": "k2venterprise@gmail.com",
+    "phone": "To be confirmed by client",
+    "address": "Kulim, Kedah — serving Kulim & Penang (full address to be confirmed)",
+    "regNo": "Company registration no. to be confirmed",
+    "hours": "Mon–Fri 9:00–18:00 · Sat 9:00–13:00",
+    "cta": {
+      "label": "Email K2V ENTERPRISE",
+      "href": "mailto:k2venterprise@gmail.com"
+    }
+  },
+  "catalogue": {
+    "eyebrow": "What we supply",
+    "title": "Product catalogue",
+    "intro": "Browse our supply lines and contact K2V ENTERPRISE for specifications, pack sizes, lead times and wholesale pricing.",
+    "cta": {
+      "label": "Make an enquiry",
+      "href": "#contact"
+    }
+  },
+  "footer": {
+    "blurb": "Industrial materials, packaging, safety equipment, office furniture and stationery — sourced, stocked and delivered across Kulim and Penang.",
+    "columns": [
+      {
+        "id": "f1",
+        "heading": "Quick links",
+        "links": [
+          {
+            "id": "fl1",
+            "label": "About us",
+            "href": "#about"
+          },
+          {
+            "id": "fl2",
+            "label": "Products",
+            "href": "#/products"
+          },
+          {
+            "id": "fl3",
+            "label": "Services",
+            "href": "#services"
+          },
+          {
+            "id": "fl4",
+            "label": "Contact",
+            "href": "#contact"
+          }
+        ]
+      },
+      {
+        "id": "f2",
+        "heading": "Contact",
+        "links": [
+          {
+            "id": "fl5",
+            "label": "k2venterprise@gmail.com",
+            "href": "mailto:k2venterprise@gmail.com"
+          },
+          {
+            "id": "fl6",
+            "label": "Request a quote",
+            "href": "#contact"
+          }
+        ]
+      }
+    ],
+    "legal": "© 2026 K2V ENTERPRISE",
+    "note": "All rights reserved"
+  },
   "categories": [
     {
       "id": "c1",
-      "slug": "bubble-wrap",
       "name": "Bubble Wrap",
-      "code": "BW",
+      "slug": "bubble-wrap",
       "blurb": "Single and double layer protective wrap in sheet and roll form.",
       "image": "",
       "published": true
     },
     {
       "id": "c2",
-      "slug": "stretch-film",
       "name": "Stretch Film",
-      "code": "SF",
+      "slug": "stretch-film",
       "blurb": "Hand and machine grade pallet wrap, clear and black.",
       "image": "",
       "published": true
     },
     {
       "id": "c3",
-      "slug": "pe-foam",
-      "name": "PE Foam",
-      "code": "PF",
-      "blurb": "Closed-cell foam sheet, roll and profile for surface protection.",
+      "name": "Industrial Tapes",
+      "slug": "industrial-tapes",
+      "blurb": "Kapton polyimide and green PET masking tape for high-temperature work.",
       "image": "",
       "published": true
     },
     {
       "id": "c4",
-      "slug": "industrial-tapes",
-      "name": "Industrial Tapes",
-      "code": "KT",
-      "blurb": "Kapton polyimide, green PET masking and high-temperature tapes.",
+      "name": "Safety Equipment",
+      "slug": "safety-equipment",
+      "blurb": "PPE, safety footwear, gloves and anti-static cleanroom wear.",
       "image": "",
       "published": true
     },
     {
       "id": "c5",
-      "slug": "safety-equipment",
-      "name": "Safety Equipment",
-      "code": "SE",
-      "blurb": "PPE, safety footwear, gloves and eye protection.",
+      "name": "PE Foam",
+      "slug": "pe-foam",
+      "blurb": "Closed-cell foam sheet, roll and profile for surface protection.",
       "image": "",
       "published": true
     },
     {
       "id": "c6",
-      "slug": "cleanroom",
-      "name": "Cleanroom Supplies",
-      "code": "CR",
-      "blurb": "Jumpsuits, shoe covers, wipes and consumables for controlled areas.",
+      "name": "White Board",
+      "slug": "white-board",
+      "blurb": "Aluminium-framed magnetic whiteboards with pen tray and mounting kit.",
       "image": "",
       "published": true
     },
     {
       "id": "c7",
-      "slug": "office-furniture",
       "name": "Office Furniture",
-      "code": "OF",
+      "slug": "office-furniture",
       "blurb": "Workstations, seating, storage and meeting tables.",
       "image": "",
       "published": true
     },
     {
       "id": "c8",
-      "slug": "office-stationery",
       "name": "Office Stationery",
-      "code": "OS",
+      "slug": "office-stationery",
       "blurb": "Paper, filing, writing and everyday desk supplies.",
       "image": "",
       "published": true
     },
     {
       "id": "c9",
-      "slug": "hygiene",
-      "name": "Hand Wash & Hygiene",
-      "code": "HY",
-      "blurb": "Hand soap, sanitiser, dispensers and washroom consumables.",
+      "name": "Hand Wash & Soap",
+      "slug": "hand-wash-soap",
+      "blurb": "Anti-bacterial hand soap, sanitiser, dispensers and washroom consumables.",
       "image": "",
       "published": true
     }
@@ -194,569 +317,129 @@
   "products": [
     {
       "id": "p1",
-      "sku": "K2V-BW-1000",
       "name": "Bubble Wrap Roll 1000mm",
+      "sku": "K2V-BW-1000",
       "categoryId": "c1",
       "summary": "Single-layer 10mm bubble, 1000mm x 100m clear roll for general packing.",
-      "description": "General purpose protective wrap for cartons, glassware and finished goods. Supplied on a core for dispenser use. Perforation available on request.",
-      "specs": [
-        [
-          "Bubble size",
-          "10 mm"
-        ],
-        [
-          "Width",
-          "1000 mm"
-        ],
-        [
-          "Roll length",
-          "100 m"
-        ],
-        [
-          "Material",
-          "LDPE"
-        ],
-        [
-          "Colour",
-          "Clear"
-        ]
-      ],
       "image": "",
-      "tags": [
-        "packaging",
-        "fast-moving"
-      ],
       "published": true
     },
     {
       "id": "p2",
-      "sku": "K2V-BW-500D",
       "name": "Double Layer Bubble Wrap 500mm",
+      "sku": "K2V-BW-500D",
       "categoryId": "c1",
       "summary": "Two-ply wrap for heavier or sharp-edged items, 500mm x 100m.",
-      "description": "Twin-layer construction for parts with corners and edges that puncture single-ply wrap. Common in machined component despatch.",
-      "specs": [
-        [
-          "Layers",
-          "2"
-        ],
-        [
-          "Width",
-          "500 mm"
-        ],
-        [
-          "Roll length",
-          "100 m"
-        ],
-        [
-          "Material",
-          "LDPE"
-        ]
-      ],
       "image": "",
-      "tags": [
-        "packaging"
-      ],
       "published": true
     },
     {
       "id": "p3",
-      "sku": "K2V-SF-500",
       "name": "Hand Stretch Film 500mm",
+      "sku": "K2V-SF-500",
       "categoryId": "c2",
       "summary": "23 micron clear pallet wrap, 500mm x 2.0kg net, hand grade.",
-      "description": "Standard hand-applied pallet wrap. Cast film with low noise unwind and consistent cling on one side only.",
-      "specs": [
-        [
-          "Thickness",
-          "23 micron"
-        ],
-        [
-          "Width",
-          "500 mm"
-        ],
-        [
-          "Net weight",
-          "2.0 kg"
-        ],
-        [
-          "Type",
-          "Cast, hand grade"
-        ],
-        [
-          "Cling",
-          "Single side"
-        ]
-      ],
       "image": "",
-      "tags": [
-        "packaging",
-        "fast-moving"
-      ],
       "published": true
     },
     {
       "id": "p4",
-      "sku": "K2V-SF-MC17",
       "name": "Machine Stretch Film 17mic",
+      "sku": "K2V-SF-MC17",
       "categoryId": "c2",
       "summary": "17 micron machine grade film for automatic pallet wrappers.",
-      "description": "Pre-stretch compatible film for semi-automatic and automatic wrapping machines. Available clear or black for load concealment.",
-      "specs": [
-        [
-          "Thickness",
-          "17 micron"
-        ],
-        [
-          "Width",
-          "500 mm"
-        ],
-        [
-          "Roll weight",
-          "15 kg"
-        ],
-        [
-          "Type",
-          "Machine grade"
-        ],
-        [
-          "Colour",
-          "Clear / Black"
-        ]
-      ],
       "image": "",
-      "tags": [
-        "packaging"
-      ],
       "published": true
     },
     {
       "id": "p5",
-      "sku": "K2V-PF-2MM",
-      "name": "PE Foam Sheet 2mm",
+      "name": "Kapton Polyimide Tape 25mm",
+      "sku": "K2V-KT-025",
       "categoryId": "c3",
-      "summary": "Closed-cell foam sheet for scratch-sensitive surfaces.",
-      "description": "Non-abrasive interleaving for painted panels, display glass and coated metal. Cut to size on request.",
-      "specs": [
-        [
-          "Thickness",
-          "2 mm"
-        ],
-        [
-          "Sheet size",
-          "1000 x 2000 mm"
-        ],
-        [
-          "Density",
-          "25 kg/m³"
-        ],
-        [
-          "Cell",
-          "Closed"
-        ]
-      ],
+      "summary": "Amber polyimide tape with silicone adhesive for reflow and wave solder masking.",
       "image": "",
-      "tags": [
-        "packaging"
-      ],
       "published": true
     },
     {
       "id": "p6",
-      "sku": "K2V-KT-025",
-      "name": "Kapton Polyimide Tape 25mm",
-      "categoryId": "c4",
-      "summary": "Amber polyimide tape with silicone adhesive for reflow and wave solder masking.",
-      "description": "High-temperature masking for PCB assembly, powder coating and anodising. Leaves no residue at rated temperature.",
-      "specs": [
-        [
-          "Width",
-          "25 mm"
-        ],
-        [
-          "Length",
-          "33 m"
-        ],
-        [
-          "Film thickness",
-          "25 micron"
-        ],
-        [
-          "Adhesive",
-          "Silicone"
-        ],
-        [
-          "Temp resistance",
-          "Up to 260°C"
-        ]
-      ],
+      "name": "Green PET Masking Tape 18mm",
+      "sku": "K2V-KT-GP18",
+      "categoryId": "c3",
+      "summary": "Polyester masking tape for powder coating and plating line masking.",
       "image": "",
-      "tags": [
-        "electronics",
-        "high-temp"
-      ],
       "published": true
     },
     {
       "id": "p7",
-      "sku": "K2V-KT-GP18",
-      "name": "Green PET Masking Tape 18mm",
+      "name": "Safety Shoe — Steel Toe",
+      "sku": "K2V-SE-SB4",
       "categoryId": "c4",
-      "summary": "Polyester masking tape for powder coating and plating line masking.",
-      "description": "Silicone adhesive PET tape that strips cleanly after oven cure. Standard green for line visibility.",
-      "specs": [
-        [
-          "Width",
-          "18 mm"
-        ],
-        [
-          "Length",
-          "66 m"
-        ],
-        [
-          "Backing",
-          "PET"
-        ],
-        [
-          "Temp resistance",
-          "Up to 200°C"
-        ],
-        [
-          "Colour",
-          "Green"
-        ]
-      ],
+      "summary": "Low-cut steel toe cap safety shoe, oil resistant sole, sizes 5–12.",
       "image": "",
-      "tags": [
-        "high-temp"
-      ],
       "published": true
     },
     {
       "id": "p8",
-      "sku": "K2V-SE-SB4",
-      "name": "Safety Shoe — Steel Toe",
-      "categoryId": "c5",
-      "summary": "Low-cut steel toe cap safety shoe, oil resistant sole, sizes 5–12.",
-      "description": "Everyday production floor footwear. Steel toe cap with anti-slip outsole. Bulk sizing runs available for new-hire packs.",
-      "specs": [
-        [
-          "Toe cap",
-          "Steel, 200J"
-        ],
-        [
-          "Sole",
-          "Oil and slip resistant"
-        ],
-        [
-          "Sizes",
-          "UK 5 – 12"
-        ],
-        [
-          "Style",
-          "Low cut"
-        ]
-      ],
+      "name": "Nitrile Gloves — Powder Free",
+      "sku": "K2V-SE-GLN",
+      "categoryId": "c4",
+      "summary": "Blue nitrile examination gloves, 100 pieces per box.",
       "image": "",
-      "tags": [
-        "ppe"
-      ],
       "published": true
     },
     {
       "id": "p9",
-      "sku": "K2V-SE-GLN",
-      "name": "Nitrile Gloves — Powder Free",
-      "categoryId": "c5",
-      "summary": "Blue nitrile examination gloves, 100 pieces per box.",
-      "description": "Powder-free nitrile for handling, assembly and light chemical contact. Textured fingertips.",
-      "specs": [
-        [
-          "Material",
-          "Nitrile"
-        ],
-        [
-          "Powder",
-          "Free"
-        ],
-        [
-          "Pack",
-          "100 pcs / box"
-        ],
-        [
-          "Sizes",
-          "S / M / L / XL"
-        ],
-        [
-          "Colour",
-          "Blue"
-        ]
-      ],
+      "name": "Cleanroom Jumpsuit",
+      "sku": "K2V-SE-JS1",
+      "categoryId": "c4",
+      "summary": "Anti-static polyester jumpsuit with hood, reusable, for controlled areas.",
       "image": "",
-      "tags": [
-        "ppe",
-        "fast-moving"
-      ],
       "published": true
     },
     {
       "id": "p10",
-      "sku": "K2V-CR-JS1",
-      "name": "Cleanroom Jumpsuit",
-      "categoryId": "c6",
-      "summary": "Anti-static polyester jumpsuit with hood, reusable, for controlled areas.",
-      "description": "Conductive grid polyester suit for ESD-sensitive and particle-controlled environments. Launderable, sold per piece or in bundles.",
-      "specs": [
-        [
-          "Fabric",
-          "Polyester with conductive grid"
-        ],
-        [
-          "Grid",
-          "5 mm"
-        ],
-        [
-          "Style",
-          "Hooded coverall"
-        ],
-        [
-          "Sizes",
-          "S – XXL"
-        ],
-        [
-          "Reusable",
-          "Yes"
-        ]
-      ],
+      "name": "PE Foam Sheet 2mm",
+      "sku": "K2V-PF-2MM",
+      "categoryId": "c5",
+      "summary": "Closed-cell foam sheet for scratch-sensitive surfaces.",
       "image": "",
-      "tags": [
-        "cleanroom"
-      ],
       "published": true
     },
     {
       "id": "p11",
-      "sku": "K2V-CR-SC1",
-      "name": "Cleanroom Shoe Cover",
+      "name": "Magnetic White Board 4' x 3'",
+      "sku": "K2V-OF-WB12",
       "categoryId": "c6",
-      "summary": "Anti-static shoe covers with conductive strip, 50 pairs per pack.",
-      "description": "Entry-point shoe covers for controlled areas with a conductive strip for grounding continuity.",
-      "specs": [
-        [
-          "Pack",
-          "50 pairs"
-        ],
-        [
-          "Sole",
-          "Anti-slip"
-        ],
-        [
-          "ESD",
-          "Conductive strip"
-        ],
-        [
-          "Colour",
-          "Blue / White"
-        ]
-      ],
+      "summary": "Aluminium frame magnetic whiteboard with pen tray, wall mounted.",
       "image": "",
-      "tags": [
-        "cleanroom"
-      ],
       "published": true
     },
     {
       "id": "p12",
-      "sku": "K2V-OF-WB12",
-      "name": "Magnetic White Board 4' x 3'",
+      "name": "Office Workstation Desk",
+      "sku": "K2V-OF-DSK1",
       "categoryId": "c7",
-      "summary": "Aluminium frame magnetic whiteboard with pen tray, wall mounted.",
-      "description": "Standard production and meeting room board. Magnetic surface, aluminium trim, mounting kit included.",
-      "specs": [
-        [
-          "Size",
-          "1200 x 900 mm"
-        ],
-        [
-          "Surface",
-          "Magnetic"
-        ],
-        [
-          "Frame",
-          "Aluminium"
-        ],
-        [
-          "Mounting",
-          "Wall kit included"
-        ]
-      ],
+      "summary": "1200mm melamine desk with metal leg frame and cable tray.",
       "image": "",
-      "tags": [
-        "office"
-      ],
       "published": true
     },
     {
       "id": "p13",
-      "sku": "K2V-OF-DSK1",
-      "name": "Office Workstation Desk",
-      "categoryId": "c7",
-      "summary": "1200mm melamine desk with metal leg frame and cable tray.",
-      "description": "Standard staff workstation. Optional side pedestal and screen divider for open plan layouts.",
-      "specs": [
-        [
-          "Top size",
-          "1200 x 600 mm"
-        ],
-        [
-          "Top",
-          "25 mm melamine"
-        ],
-        [
-          "Frame",
-          "Powder coated steel"
-        ],
-        [
-          "Options",
-          "Pedestal, divider"
-        ]
-      ],
+      "name": "A4 Copier Paper 80gsm",
+      "sku": "K2V-OS-A4C",
+      "categoryId": "c8",
+      "summary": "80gsm multipurpose A4, 500 sheets per ream, 5 reams per box.",
       "image": "",
-      "tags": [
-        "office",
-        "furniture"
-      ],
       "published": true
     },
     {
       "id": "p14",
-      "sku": "K2V-OS-A4C",
-      "name": "A4 Copier Paper 80gsm",
-      "categoryId": "c8",
-      "summary": "80gsm multipurpose A4, 500 sheets per ream, 5 reams per box.",
-      "description": "Everyday copier and laser paper. Ordered by the box or the pallet.",
-      "specs": [
-        [
-          "Weight",
-          "80 gsm"
-        ],
-        [
-          "Size",
-          "A4"
-        ],
-        [
-          "Ream",
-          "500 sheets"
-        ],
-        [
-          "Carton",
-          "5 reams"
-        ],
-        [
-          "Brightness",
-          "102"
-        ]
-      ],
-      "image": "",
-      "tags": [
-        "office",
-        "fast-moving"
-      ],
-      "published": true
-    },
-    {
-      "id": "p15",
-      "sku": "K2V-HY-HW5",
       "name": "Hand Wash Refill 5L",
+      "sku": "K2V-HY-HW5",
       "categoryId": "c9",
       "summary": "Anti-bacterial liquid hand soap, 5 litre refill container.",
-      "description": "Washroom and pantry refill for pump and wall dispensers. Dispensers available separately.",
-      "specs": [
-        [
-          "Volume",
-          "5 L"
-        ],
-        [
-          "Type",
-          "Anti-bacterial liquid"
-        ],
-        [
-          "Fragrance",
-          "Mild"
-        ],
-        [
-          "Use",
-          "Refill for dispensers"
-        ]
-      ],
       "image": "",
-      "tags": [
-        "hygiene",
-        "fast-moving"
-      ],
       "published": true
     }
-  ],
-  "pages": [
-    {
-      "id": "pg1",
-      "slug": "about-us",
-      "title": "About K2V Enterprise",
-      "intro": "A supply partner for factories, schools and offices in Kulim and Penang.",
-      "showInNav": false,
-      "published": true,
-      "body": "<p>K2V Enterprise supplies industrial materials, packaging, safety and cleanroom consumables, office furniture and stationery to industrial companies, schools and offices across Kulim and Penang, in both the private and government sectors.</p><h3>What we do</h3><p>Most of our customers came to us holding a list of items spread across five or six suppliers. We consolidate that list: one point of contact, one delivery, one invoice, and someone who picks up the phone when a line item runs short.</p><h3>Vision</h3><p>To deliver outstanding service and premium products to our customers with the best quality.</p><h3>Mission</h3><p>We K2V Enterprise pledge to satisfy our customers with our products and services and to work together with our business partners, suppliers and others to our common advantage.</p><h3>How we work</h3><ul><li>Send a list, a part number, or a photo of the packaging you are replacing.</li><li>We quote with the spec, the lead time and the pack size stated up front.</li><li>Fast-moving items ship from local stock; specialty items are sourced to spec.</li></ul><h3>Who we supply</h3><p>Electronics and precision engineering, manufacturing, educational institutions, government departments, and offices fitting out new space.</p>"
-    },
-    {
-      "id": "pg2",
-      "slug": "services",
-      "title": "Services",
-      "intro": "Supply is the product. These come with it.",
-      "showInNav": false,
-      "published": true,
-      "body": "<h3>Consolidated procurement</h3><p>One PO across all nine categories, with a single delivery schedule agreed to your production calendar.</p><h3>Cut-to-size packaging</h3><p>Bubble wrap, PE foam and film cut to your carton or pallet dimensions to reduce waste per shipment.</p><h3>Stock holding</h3><p>For repeat monthly volumes we hold buffer stock against a call-off schedule.</p><h3>Spec matching</h3><p>Give us the item you are discontinuing and we return an equivalent with the technical data sheet attached.</p>"
-    },
-    {
-      "id": "pg3",
-      "slug": "privacy-policy",
-      "title": "Privacy Policy",
-      "intro": "How enquiry information is handled.",
-      "showInNav": false,
-      "published": true,
-      "body": "<p>This is placeholder copy for the mock site. Replace before launch.</p><p>Information submitted through the enquiry form is used only to respond to the enquiry and is not shared with third parties.</p>"
-    }
-  ],
-  "news": [
-    {
-      "id": "nw1",
-      "slug": "cleanroom-range-expanded",
-      "title": "Cleanroom range expanded",
-      "date": "2026-08-12",
-      "excerpt": "Jumpsuits, shoe covers and wipes now held in local stock for same-week delivery.",
-      "image": "",
-      "published": true,
-      "body": "<p>We have expanded local stock holding on cleanroom consumables following repeat demand from electronics assembly customers in Penang and Kulim.</p><p>Jumpsuits are now stocked from S to XXL, with shoe covers and lint-free wipes available on the same delivery run.</p>"
-    },
-    {
-      "id": "nw2",
-      "slug": "kapton-tape-now-stocked",
-      "title": "Kapton tape now stocked in three widths",
-      "date": "2026-07-02",
-      "excerpt": "12mm, 18mm and 25mm polyimide tape available off the shelf.",
-      "image": "",
-      "published": true,
-      "body": "<p>High-temperature polyimide tape is now held in three standard widths, cutting the usual import lead time on reflow masking orders.</p>"
-    },
-    {
-      "id": "nw3",
-      "slug": "raya-delivery-schedule",
-      "title": "Festive delivery schedule",
-      "date": "2026-03-18",
-      "excerpt": "Order cut-off dates for the holiday period.",
-      "image": "",
-      "published": true,
-      "body": "<p>Orders placed before the stated cut-off will be delivered before the holiday break. Contact us for the current schedule.</p>"
-    }
-  ],
-  "enquiries": []
+  ]
 }

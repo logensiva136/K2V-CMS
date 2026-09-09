@@ -1,148 +1,116 @@
 # K2V ENTERPRISE — website + CMS mock
 
-A working, deployable mock of a replacement website for
+A deployable mock of a replacement website for
 [K2V Enterprise](https://sites.google.com/view/k2venterprise/), a Kulim-based
 one-stop supplier of industrial materials, packaging, safety and cleanroom
 consumables, office furniture and stationery for factories, schools and offices
 across Kulim and Penang.
 
-Built as a static site: no server, no build step, no dependencies. It runs on
-GitHub Pages as-is.
+The **entire public site renders from one editable content object**. An admin
+panel at `/admin/` edits every part of it — text, headings, colours, images,
+products — so the client can click through the real thing and shape the content
+before a Wagtail CRX build.
 
-- `/` — customer-facing site
-- `/category/` — product catalogue
-- `/admin/` — content editor (no login on the deployed build — see the security note)
+- `/` — customer-facing site (home + products catalogue)
+- `/admin/` — content editor (no login — see the security note)
 
-The point of this build is to let the client **click through the real thing and
-edit real content** before committing budget to a Wagtail CRX build. The content
-model in `data/content.json` is shaped to map onto CRX page types (table below).
+Built with **React + Vite**.
 
 ---
 
-## Two builds in this repo
+## Run it
 
-**Deployed build (the real deliverable)** — the multi-file site at the repo root.
-This is what GitHub Pages serves.
+```bash
+npm install
+npm run dev        # http://localhost:5173/  and  /admin/
+npm run build      # → dist/
+npm run preview    # serve the production build
+```
 
-| Path | What it is |
+`npm run gen:content` rewrites `data/content.json` from `src/content/defaults.js`
+(the Wagtail import reference — see below).
+
+---
+
+## How editing works
+
+| | |
 |---|---|
-| `index.html` | Public one-page site |
-| `category/index.html` | Static product catalogue (nine supply lines) |
-| `admin/index.html` | Content editor |
-| `assets/site.css`, `assets/site.js` | Public styles + mobile nav / scroll-spy |
-| `assets/public-cms.js` | Applies admin edits to the public page on load |
-| `assets/admin-dashboard.js`, `assets/admin-dashboard.css` | The editor |
-
-**Standalone build** — `standalone/site.html` and `standalone/admin.html` are an
-earlier, self-contained version: a hash-router single-page app with the CSS and
-JavaScript inlined into one file each. Double-click either one, or email them to
-the client for a demo on a laptop with no internet. They share content with each
-other but not with the deployed build. The standalone admin has a **mock** staff
-login (`admin` / `k2v2026`).
-
----
-
-## What the client can edit in `/admin` (deployed build)
-
-| Section | What it edits |
-|---|---|
-| Overview | Live counts and quick actions |
-| Site content | Business name, legal name, tagline, email, phone, registration no., hours, address; hero eyebrow / title / body |
-| Products | Add, edit, delete; name, category, published/draft status |
-| Categories | The supply lines and their descriptions |
-| Services | The "how we work" pillars |
-| Command line | A few safe text commands against the local store (`help`, `stats`, `set title …`, `add product …`, `publish all`) |
-| Import / export | Download the content as JSON, load one back, reset to seed |
-
-Deleting a category that still has products is left to the editor's judgement in
-this build; the real rules (unique product codes, blocked deletes, draft hiding)
-arrive with the Wagtail build.
-
----
-
-## How content is stored
-
-The seed content ships inside the JavaScript:
-
-- Deployed build — seed is inline in `assets/admin-dashboard.js`; saves write to
-  `localStorage` under **`k2v_site_content`**.
-- Standalone build — seed is `window.K2V_SEED` inline in each HTML file (and
-  mirrored in `assets/seed.js` / `assets/store.js`); saves write to
-  `localStorage` under **`k2v_cms_content`**.
-
-The two keys are deliberately different so the builds never clobber each other.
+| **Source of truth** | `src/content/defaults.js` — the built-in/seed content |
+| **Live edits** | saved to `localStorage` under `k2v_site_content`, per browser |
+| **Publishing** | export JSON from `/admin/` → **Import / export**, paste into `defaults.js`, bump `CONTENT_VERSION`, commit |
 
 Edits are **per browser** — what the client changes on their laptop is not what a
-visitor sees. That is the correct behaviour for a mock, and it is the single
-thing to be explicit about in the demo. To make an edit permanent:
-
-1. In `/admin` → **Import / export** → **Download JSON**
-2. Paste the values into the seed object (`assets/admin-dashboard.js` for the
-   deployed build)
-3. Commit and push
+visitor sees. That is the correct behaviour for a mock and the one thing to be
+explicit about in the demo. Bumping `CONTENT_VERSION` makes returning browsers
+pick up new seed content instead of their stale local copy.
 
 If `localStorage` is unavailable (private mode, sandboxed preview) the editor
 falls back to memory — it still works, it just forgets on reload.
 
-### Placeholder images
+### What the admin can edit
 
-Records without an image URL render a generated SVG plate instead of a broken
-image. Real photography can be dropped in one record at a time by pasting a URL.
+Theme (fonts, corner radius, every colour) · identity and logo · announcement
+bar · navigation menu · hero (text, buttons, image, badge) · stats band · about
+section · "what we supply" section · services · sectors · contact details ·
+products-page header · footer (columns and links) · categories (name, blurb,
+image, published) · products (name, code, category, summary, image, published).
+
+### Images
+
+Every image field takes a URL **or** an uploaded file. Uploads are stored as a
+base64 data URL inside the content JSON — fine for a handful of images; the field
+warns when one is large. Prefer hosted URLs for anything that ships in the seed.
+
+Records with no image show a hatched placeholder with the item's name, so nothing
+ever 404s.
+
+### Live preview
+
+`/admin/` shows the real site in an iframe beside the form. Because both run on
+the same origin and share the `localStorage` key, edits appear in the preview as
+you type — no save button.
 
 ---
 
 ## Deploy to GitHub Pages
 
-`.github/workflows/static.yml` deploys the whole repository to GitHub Pages on
-every push to `master` (and on demand from the Actions tab). One-time setup:
+`.github/workflows/static.yml` builds the site and deploys it on every push to
+`master` (and on demand from the Actions tab). One-time setup:
 
 **Settings → Pages → Source: GitHub Actions.**
 
-First build takes 1–2 minutes. Pages must be **public** — GitHub only serves
-Pages from private repos on paid plans. `.nojekyll` is included so Jekyll leaves
-the files alone.
-
-The site appears at `https://<you>.github.io/<repo>/`, the catalogue at
-`/category/` and the editor at `/admin/`.
-
-To preview locally, open `index.html` directly, or:
-
-```bash
-python3 -m http.server 8000
-```
+Pages must be **public** — GitHub only serves Pages from private repos on paid
+plans. Vite is configured with `base: "./"` so the build works at any path
+(`https://<you>.github.io/<repo>/`) without knowing the repo name.
 
 ---
 
 ## Security note — read this before showing the client
 
-The deployed `/admin` has **no authentication**. The page is publicly reachable
-and anyone can open it and edit their own browser's copy of the content. On a
-static host there is no way around that. The standalone admin's login is
-**cosmetic** — the credentials are in the JavaScript.
+`/admin/` has **no authentication**. It is publicly reachable and anyone can open
+it and edit their own browser's copy of the content. On a static host there is no
+way around that; it exists so the demo feels like a real product. Real
+authentication, roles and audit logging arrive with the Wagtail build.
 
-Do not put anything confidential into this mock, and do not treat the enquiry
-inbox as private. Real authentication, roles and audit logging arrive with the
-Wagtail build.
+Do not put anything confidential into this mock.
 
 ---
 
 ## Migration path — Wagtail CRX
 
-`data/content.json` is a fuller content model than the deployed editor exposes
-(products carry spec tables, categories carry codes and slugs, plus `pages` and
-`news`). It is not loaded by the live site — it exists as the initial data load
-for the real build.
+`data/content.json` is the same model as a flat JSON file, ready as the initial
+data load for the real build.
 
 | `content.json` key | Wagtail CRX |
 |---|---|
-| `site` | `Website` settings / branding, analytics, social |
+| `theme`, `identity` | `Website` settings / branding, fonts, colours |
 | `nav` | `Navbar` snippet |
-| `home` | `ArticlePage` (home) using hero, card grid and button blocks |
-| `pages[]` | `ArticlePage` children of home |
+| `hero`, `about`, `supply`, `services`, `sectors`, `contact` | home `ArticlePage` StreamField blocks |
+| `catalogue` | products index page |
 | `categories[]` | `ArticleIndexPage` (or a product category model) |
 | `products[]` | Product page type with a spec table block |
-| `news[]` | `ArticlePage` under a `News` index page |
-| `enquiries[]` | `FormPage` submissions |
+| `footer` | footer snippet |
 
 Recommended follow-on scope for the real build:
 
@@ -155,32 +123,22 @@ Recommended follow-on scope for the real build:
 
 ---
 
-## File map
+## Layout
 
 ```
-index.html                    public site
-category/index.html           product catalogue
-admin/index.html              admin shell
-assets/site.css               public styles
-assets/site.js                public nav / scroll-spy
-assets/public-cms.js          applies admin edits to the public page
-assets/admin-dashboard.js     the deployed editor (seed inline)
-assets/admin-dashboard.css    editor styles
-assets/seed.js                standalone-build seed content
-assets/store.js               standalone-build storage layer + helpers
-assets/admin.js               standalone-build admin CRUD
-assets/admin.css              standalone-build admin styles
-data/content.json             fuller content model for the CRX import
-standalone/site.html          single-file offline copy of the public SPA
-standalone/admin.html         single-file offline copy of the admin SPA
-.github/workflows/static.yml  GitHub Pages deploy
-.nojekyll                     serve files as-is
+index.html                  public app entry (Vite)
+admin/index.html            admin app entry (Vite)
+src/
+  content/defaults.js       seed content — the single source of truth
+  store.js                  localStorage load/save/subscribe/export/import
+  theme.js                  applies the theme object to CSS custom properties
+  public/                   the customer-facing app (App.jsx + sections)
+  admin/                    the CMS (Admin.jsx, fields.jsx)
+  styles/                   site.css, admin.css
+scripts/gen-content-json.mjs  regenerates data/content.json from defaults
+data/content.json           flat content model for the CRX import
+.github/workflows/static.yml  build + deploy to GitHub Pages
 ```
-
-`assets/seed.js`, `assets/store.js`, `assets/admin.js` and `assets/admin.css`
-belong to the standalone build. The deployed pages do not load them; the
-standalone HTML files have their own inlined copies. Regenerate the standalone
-files whenever those assets change.
 
 ---
 
@@ -188,6 +146,6 @@ files whenever those assets change.
 
 In the seed content, the **phone number**, **full address** and **company
 registration number** are labelled placeholders ("to be confirmed by client").
-The email address is the real one from the current Google Site. Product
-specifications in `data/content.json` are plausible but unverified — confirm them
-with the client before this is shown to a buyer.
+The email is the real one from the current Google Site. Product summaries are
+plausible but unverified — confirm them with the client before this is shown to a
+buyer.
