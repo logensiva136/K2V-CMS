@@ -2,7 +2,7 @@
 // The admin CMS edits a copy of it in localStorage; nothing else is hard-coded.
 // Bump CONTENT_VERSION when the shape changes so old saved copies are re-seeded.
 
-export const CONTENT_VERSION = 6;
+export const CONTENT_VERSION = 7;
 
 export const FONT_PRESETS = {
   modern: { label: "Modern — DM Sans / Manrope", body: '"DM Sans", system-ui, Arial, sans-serif', head: '"Manrope", system-ui, sans-serif' },
@@ -44,7 +44,7 @@ export const DEFAULT_CONTENT = {
     items: [
       { id: "n1", label: "Home", href: "#/", show: true },
       { id: "n2", label: "About", href: "#about", show: true },
-      { id: "n3", label: "Products", href: "#/products", show: true },
+      { id: "n3", label: "Products", href: "#products", show: true },
       { id: "n4", label: "Services", href: "#services", show: true },
       { id: "n5", label: "Contact", href: "#contact", show: true },
     ],
@@ -55,7 +55,7 @@ export const DEFAULT_CONTENT = {
     title: "Everything the floor and the office",
     titleEm: "run on.",
     body: "K2V ENTERPRISE supplies packaging materials, industrial tapes, safety and cleanroom wear, office furniture and stationery to manufacturers, schools and offices across Perlis, Kedah and Penang — one supplier, one purchase order.",
-    primary: { label: "Browse products", href: "#/products" },
+    primary: { label: "Browse products", href: "#products" },
     secondary: { label: "About K2V", href: "#about" },
     image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=85",
     badgeValue: "9",
@@ -85,9 +85,8 @@ export const DEFAULT_CONTENT = {
 
   supply: {
     eyebrow: "What we supply",
-    title: "Nine supply lines, one account",
-    link: { label: "See full catalogue", href: "#/products" },
-    featuredCount: 4,
+    title: "Our products",
+    link: { label: "Browse by category", href: "#/products" },
   },
 
   services: {
@@ -132,7 +131,7 @@ export const DEFAULT_CONTENT = {
     columns: [
       { id: "f1", heading: "Quick links", links: [
         { id: "fl1", label: "About us", href: "#about" },
-        { id: "fl2", label: "Products", href: "#/products" },
+        { id: "fl2", label: "Products", href: "#products" },
         { id: "fl3", label: "Services", href: "#services" },
         { id: "fl4", label: "Contact", href: "#contact" },
       ] },

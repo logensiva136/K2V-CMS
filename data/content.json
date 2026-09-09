@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "theme": {
     "fontPreset": "modern",
     "navy": "#123c70",
@@ -45,7 +45,7 @@
       {
         "id": "n3",
         "label": "Products",
-        "href": "#/products",
+        "href": "#products",
         "show": true
       },
       {
@@ -69,7 +69,7 @@
     "body": "K2V ENTERPRISE supplies packaging materials, industrial tapes, safety and cleanroom wear, office furniture and stationery to manufacturers, schools and offices across Perlis, Kedah and Penang — one supplier, one purchase order.",
     "primary": {
       "label": "Browse products",
-      "href": "#/products"
+      "href": "#products"
     },
     "secondary": {
       "label": "About K2V",
@@ -119,12 +119,11 @@
   },
   "supply": {
     "eyebrow": "What we supply",
-    "title": "Nine supply lines, one account",
+    "title": "Our products",
     "link": {
-      "label": "See full catalogue",
+      "label": "Browse by category",
       "href": "#/products"
-    },
-    "featuredCount": 4
+    }
   },
   "services": {
     "eyebrow": "How we work",
@@ -206,7 +205,7 @@
           {
             "id": "fl2",
             "label": "Products",
-            "href": "#/products"
+            "href": "#products"
           },
           {
             "id": "fl3",

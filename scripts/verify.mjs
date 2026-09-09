@@ -54,7 +54,9 @@ const admEl = document.getElementById("adm");
 
 await act(async () => { pub.render(React.createElement(App)); });
 check("public renders hero body", /one supplier, one purchase order/i.test(pubEl.textContent));
-check("public renders a featured category card", /Bubble Wrap/.test(pubEl.textContent));
+check("home lists products grouped by category", /Bubble Wrap/.test(pubEl.textContent) && /Hand Stretch Film 500mm/.test(pubEl.textContent));
+check("home product cards link to the product page", !!pubEl.querySelector('#products a[href="#/product/p3"]'));
+check("nav Products points at the on-page section", !!pubEl.querySelector('header a[href="#products"]'));
 check("theme var applied to :root", document.documentElement.style.getPropertyValue("--navy") === "#123c70");
 
 await act(async () => { store.update("hero.title", "HEADLESS EDIT OK"); });

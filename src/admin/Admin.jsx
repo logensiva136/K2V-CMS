@@ -268,14 +268,16 @@ function AboutPanel() {
 function SupplyPanel() {
   return (
     <>
-      <Group title="“What we supply” section">
+      <Group title="Products section (on the home page)">
         <Text path="supply.eyebrow" label="Eyebrow" />
         <Text path="supply.title" label="Heading" />
-        <Num path="supply.featuredCount" label="Featured cards" min={2} max={9} hint="Shows the first N published categories as cards" />
       </Group>
       <LinkPair base="supply.link" label="Section link" />
       <p className="note">
-        The cards themselves are the first published <b>Categories</b> — edit their name, blurb and image in the Categories panel.
+        This section lists <b>every published product</b>, grouped under its category heading.
+        Each card links to that product’s own page. Add products, images, descriptions and
+        specification tables in the <b>Products</b> panel; rename or hide category headings in
+        the <b>Categories</b> panel.
       </p>
     </>
   );

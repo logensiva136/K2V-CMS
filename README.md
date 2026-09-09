@@ -12,8 +12,10 @@ products (including per-product description and a specification table) — so th
 client can click through the real thing and shape the content before a Wagtail
 CRX build.
 
-Public pages: home one-pager · `#/products` catalogue · `#/product/<id>` product
-detail (image, description, spec table, enquiry button).
+Public pages: home one-pager (every published product is listed in the
+"products" section, grouped by category) · `#/product/<id>` product detail
+(image, description, spec table, enquiry button) · `#/products` a category-
+filtered browse of the same products.
 
 - `/` — customer-facing site (home + products catalogue)
 - `/admin/` — content editor (no login — see the security note)

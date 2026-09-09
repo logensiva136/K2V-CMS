@@ -248,8 +248,15 @@ function emphasise(text) {
 }
 
 function Supply({ content }) {
-  const { supply, categories } = content;
-  const featured = categories.filter((c) => c.published).slice(0, supply.featuredCount || 4);
+  const { supply, categories, products } = content;
+  const cats = categories.filter((c) => c.published);
+  const published = products.filter((p) => p.published !== false);
+  const groups = cats
+    .map((cat) => ({ cat, items: published.filter((p) => p.categoryId === cat.id) }))
+    .filter((g) => g.items.length > 0);
+  const orphans = published.filter((p) => !cats.some((c) => c.id === p.categoryId));
+  if (orphans.length) groups.push({ cat: null, items: orphans });
+
   return (
     <section className="section section--soft" id="products">
       <div className="wrap">
@@ -264,16 +271,25 @@ function Supply({ content }) {
             </Link>
           )}
         </div>
-        <div className="cards">
-          {featured.map((cat, i) => (
-            <Link key={cat.id} href="#/products" className="product-card">
-              <Img url={cat.image} alt={cat.name} className="card-image" phText={cat.name} />
-              <span>{String(i + 1).padStart(2, "0")}</span>
-              <h3>{cat.name}</h3>
-              <p>{cat.blurb}</p>
-            </Link>
-          ))}
-        </div>
+
+        {groups.length === 0 && (
+          <p style={{ color: "var(--muted)" }}>Products will appear here once they are added.</p>
+        )}
+
+        {groups.map(({ cat, items }) => (
+          <div className="supply-group" key={cat ? cat.id : "_orphans"}>
+            {cat && <h3 className="supply-group__title">{cat.name}</h3>}
+            <div className="cards">
+              {items.map((p) => (
+                <Link key={p.id} href={`#/product/${p.id}`} className="product-card">
+                  <Img url={p.image} alt={p.name} className="card-image" phText={p.sku || p.name} />
+                  {p.sku && <span>{p.sku}</span>}
+                  <h4>{p.name}</h4>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
