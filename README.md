@@ -4,12 +4,16 @@ A deployable mock of a replacement website for
 [K2V Enterprise](https://sites.google.com/view/k2venterprise/), a Kulim-based
 one-stop supplier of industrial materials, packaging, safety and cleanroom
 consumables, office furniture and stationery for factories, schools and offices
-across Kulim and Penang.
+across Perlis, Kedah and Penang.
 
 The **entire public site renders from one editable content object**. An admin
 panel at `/admin/` edits every part of it — text, headings, colours, images,
-products — so the client can click through the real thing and shape the content
-before a Wagtail CRX build.
+products (including per-product description and a specification table) — so the
+client can click through the real thing and shape the content before a Wagtail
+CRX build.
+
+Public pages: home one-pager · `#/products` catalogue · `#/product/<id>` product
+detail (image, description, spec table, enquiry button).
 
 - `/` — customer-facing site (home + products catalogue)
 - `/admin/` — content editor (no login — see the security note)
@@ -54,7 +58,11 @@ Theme (fonts, corner radius, every colour) · identity and logo · announcement
 bar · navigation menu · hero (text, buttons, image, badge) · stats band · about
 section · "what we supply" section · services · sectors · contact details ·
 products-page header · footer (columns and links) · categories (name, blurb,
-image, published) · products (name, code, category, summary, image, published).
+image, published) · products (name, code, category, summary, **description**,
+**specification rows**, image, published).
+
+A product with no description or no spec rows simply hides that block on its
+detail page, so the client can fill products in one at a time.
 
 ### Images
 

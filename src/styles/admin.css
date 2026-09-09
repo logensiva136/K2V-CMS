@@ -204,6 +204,9 @@ h1, h2, h3 { font-weight: 700; }
 
 .strrow { display: flex; gap: 6px; }
 .strrow input { flex: 1; }
+.pairrow { display: flex; gap: 6px; align-items: center; }
+.pairrow input { flex: 1; min-width: 0; }
+.pairrow input:first-child { flex: 0 0 40%; }
 
 button.danger { color: var(--accent); border-color: #fecaca !important; }
 button.primary { background: var(--brand); border: 1px solid var(--brand); color: #fff; border-radius: 7px; padding: 9px 14px; font-weight: 600; }

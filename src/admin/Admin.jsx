@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useContent, exportContent, importContent, resetContent, STORAGE_KEY } from "../store.js";
 import { FONT_PRESETS } from "../content/defaults.js";
 import {
-  Group, Text, Area, Select, Toggle, Color, Num, ImageInput, Repeater, StringList, Field, at,
+  Group, Text, Area, Select, Toggle, Color, Num, ImageInput, Repeater, StringList, PairList, Field, at,
 } from "./fields.jsx";
 
 const uid = (p) =>
@@ -428,6 +428,8 @@ function ProductsPanel({ content }) {
         sku: "",
         categoryId: content.categories[0]?.id || "",
         summary: "",
+        description: "",
+        specs: [],
         image: "",
         published: true,
       })}
@@ -438,7 +440,15 @@ function ProductsPanel({ content }) {
             <Text path={`${p}.sku`} label="Code / SKU" />
           </div>
           <Select path={`${p}.categoryId`} label="Category" options={catOptions} />
-          <Area path={`${p}.summary`} label="Summary" rows={2} />
+          <Area path={`${p}.summary`} label="Summary" hint="One line — shown on the card and above the details" rows={2} />
+          <Area path={`${p}.description`} label="Description" hint="Full text for the product page. Leave a blank line between paragraphs." rows={5} />
+          <PairList
+            path={`${p}.specs`}
+            label="Specifications"
+            hint="Each row becomes one line of the spec table on the product page. Leave empty to hide the table."
+            labelPlaceholder="e.g. Roll width"
+            valuePlaceholder="e.g. 1000 mm"
+          />
           <ImageInput path={`${p}.image`} label="Product image" />
           <Toggle path={`${p}.published`} label="Published (visible on the site)" />
         </>

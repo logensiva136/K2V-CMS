@@ -234,6 +234,47 @@ export function StringList({ path, label, hint, itemLabel = "item", placeholder 
   );
 }
 
+/* Edits an array of [label, value] pairs at `path` — renders as a spec table */
+export function PairList({ path, label, hint, labelPlaceholder = "Label", valuePlaceholder = "Value" }) {
+  const list = at(path) || [];
+  const mutate = (fn) => {
+    const next = list.map((r) => (Array.isArray(r) ? [...r] : ["", ""]));
+    fn(next);
+    setAt(path, next);
+  };
+  return (
+    <div className="rep">
+      <div className="rep__top">
+        <span className="fld__label">{label}</span>
+        <button type="button" onClick={() => mutate((n) => n.push(["", ""]))}>
+          + Add row
+        </button>
+      </div>
+      {hint && <span className="fld__hint">{hint}</span>}
+      {list.map((row, i) => (
+        <div className="pairrow" key={i}>
+          <input
+            type="text"
+            value={row[0] ?? ""}
+            placeholder={labelPlaceholder}
+            onChange={(e) => mutate((n) => (n[i][0] = e.target.value))}
+          />
+          <input
+            type="text"
+            value={row[1] ?? ""}
+            placeholder={valuePlaceholder}
+            onChange={(e) => mutate((n) => (n[i][1] = e.target.value))}
+          />
+          <button type="button" disabled={i === 0} onClick={() => mutate((n) => { [n[i - 1], n[i]] = [n[i], n[i - 1]]; })}>↑</button>
+          <button type="button" disabled={i === list.length - 1} onClick={() => mutate((n) => { [n[i + 1], n[i]] = [n[i], n[i + 1]]; })}>↓</button>
+          <button type="button" className="danger" onClick={() => mutate((n) => n.splice(i, 1))}>×</button>
+        </div>
+      ))}
+      {list.length === 0 && <p className="rep__empty">No rows — this product shows no spec table.</p>}
+    </div>
+  );
+}
+
 export function Group({ title, children }) {
   return (
     <section className="grp">

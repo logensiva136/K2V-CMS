@@ -69,11 +69,29 @@ await act(async () => {
 });
 check("routing to #/products shows the catalogue", /Product catalogue/.test(pubEl.textContent));
 check("catalogue lists a product", /Hand Stretch Film 500mm/.test(pubEl.textContent));
+check("catalogue cards link to product detail", !!pubEl.querySelector('a[href="#/product/p3"]'));
+
+await act(async () => {
+  window.location.hash = "#/product/p3";
+  window.dispatchEvent(new window.HashChangeEvent("hashchange"));
+});
+check("product detail shows the product name", /Hand Stretch Film 500mm/.test(pubEl.textContent));
+check("product detail shows the description", /low-noise unwind/.test(pubEl.textContent));
+check("product detail renders the spec table", /Film width/.test(pubEl.textContent) && !!pubEl.querySelector(".pdp__specs table"));
+check("product detail has an enquiry mailto", !!pubEl.querySelector('a[href^="mailto:k2venterprise@gmail.com?subject="]'));
+
+await act(async () => {
+  window.location.hash = "#/product/does-not-exist";
+  window.dispatchEvent(new window.HashChangeEvent("hashchange"));
+});
+check("unknown product id shows a not-found message", /Product not found/.test(pubEl.textContent));
 
 await act(async () => {
   window.location.hash = "#/";
   window.dispatchEvent(new window.HashChangeEvent("hashchange"));
 });
+check("home phone number is the client's", /\+60 16-490 3209/.test(pubEl.textContent));
+check("home service area is Perlis, Kedah and Penang", /Perlis, Kedah and Penang/.test(pubEl.textContent));
 
 await act(async () => { adm.render(React.createElement(Admin)); });
 check("admin renders theme panel by default", /Brand colours/.test(admEl.textContent));
@@ -96,6 +114,14 @@ await act(async () => {
   window.dispatchEvent(new window.HashChangeEvent("hashchange"));
 });
 check("admin edit is reflected on the public view", pubEl.textContent.includes("TYPED IN ADMIN"));
+
+// Products panel: description + specifications editor
+const prodBtn = [...admEl.querySelectorAll("button")].find((b) => b.textContent.trim() === "Products");
+await act(async () => { prodBtn.dispatchEvent(new window.Event("click", { bubbles: true })); });
+check("admin Products panel has a Description field", /Description/.test(admEl.textContent));
+check("admin Products panel has a Specifications editor", /Specifications/.test(admEl.textContent));
+const specRow = admEl.querySelector(".pairrow");
+check("admin spec rows are two-input pairs", !!specRow && specRow.querySelectorAll("input").length === 2);
 
 await act(async () => { store.resetContent(); });
 check("reset restores default hero title", store.getContent().hero.title === "Everything the floor and the office");

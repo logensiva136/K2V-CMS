@@ -11,6 +11,7 @@ function useRoute() {
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);
   }, []);
+  if (hash.startsWith("#/product/")) return { view: "product", id: decodeURIComponent(hash.slice(10)), hash };
   if (hash.startsWith("#/products")) return { view: "products", hash };
   if (hash.startsWith("#/")) return { view: "home", anchor: null, hash };
   return { view: "home", anchor: hash.slice(1), hash };
@@ -81,7 +82,9 @@ export function App() {
     <>
       <TopLine identity={c.identity} />
       <Header content={c} route={route} />
-      {route.view === "products" ? (
+      {route.view === "product" ? (
+        <ProductDetail content={c} id={route.id} />
+      ) : route.view === "products" ? (
         <Catalogue content={c} />
       ) : (
         <main>
@@ -317,11 +320,24 @@ function Sectors({ data }) {
 }
 
 function Contact({ data }) {
+  const phoneDigits = String(data.phone || "").replace(/[^\d+]/g, "");
+  const phoneIsNumber = /\d/.test(phoneDigits);
   const meta = [
-    data.phone && `Phone: ${data.phone}`,
-    data.address,
-    data.regNo,
-    data.hours,
+    data.phone && (
+      <>
+        Phone:{" "}
+        {phoneIsNumber ? (
+          <a href={`tel:${phoneDigits}`} style={{ color: "inherit", textDecoration: "underline" }}>
+            {data.phone}
+          </a>
+        ) : (
+          data.phone
+        )}
+      </>
+    ),
+    data.address || null,
+    data.regNo || null,
+    data.hours || null,
   ].filter(Boolean);
   return (
     <section className="cta" id="contact">
@@ -442,7 +458,7 @@ function Catalogue({ content }) {
                   ) : (
                     <div className="prod-grid">
                       {items.map((p) => (
-                        <article key={p.id} className="prod-item">
+                        <Link key={p.id} href={`#/product/${p.id}`} className="prod-item">
                           <Img
                             url={p.image}
                             alt={p.name}
@@ -452,9 +468,9 @@ function Catalogue({ content }) {
                           <div className="prod-item__body">
                             {p.sku && <div className="prod-item__sku">{p.sku}</div>}
                             <h3>{p.name}</h3>
-                            <p>{p.summary}</p>
+                            <span className="prod-item__more">View details →</span>
                           </div>
-                        </article>
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -463,6 +479,100 @@ function Catalogue({ content }) {
             })}
           </div>
         </div>
+      </div>
+    </main>
+  );
+}
+
+/* ---------------- product detail ---------------- */
+
+function ProductDetail({ content, id }) {
+  const product = content.products.find((p) => p.id === id);
+
+  if (!product || product.published === false) {
+    return (
+      <main className="pdp">
+        <div className="wrap">
+          <Link href="#/products" className="pdp__back">
+            ← Back to products
+          </Link>
+          <h1>Product not found</h1>
+          <p style={{ color: "var(--muted)" }}>
+            This product may have been removed. Browse the full catalogue instead.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  const category = content.categories.find((c) => c.id === product.categoryId);
+  const specs = (product.specs || []).filter((row) => row && (row[0] || row[1]));
+  const paragraphs = String(product.description || "")
+    .split(/\n\s*\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const email = content.contact?.email;
+  const enquireHref = email
+    ? `mailto:${email}?subject=${encodeURIComponent(`Enquiry: ${product.name}${product.sku ? ` (${product.sku})` : ""}`)}`
+    : "#contact";
+
+  return (
+    <main className="pdp">
+      <div className="wrap">
+        <div className="pdp__crumbs">
+          <Link href="#/products">Products</Link>
+          {category && (
+            <>
+              <span>/</span>
+              <Link href="#/products">{category.name}</Link>
+            </>
+          )}
+        </div>
+
+        <div className="pdp__grid">
+          <Img url={product.image} alt={product.name} className="pdp__img" phText={product.sku || product.name} />
+
+          <div className="pdp__info">
+            {product.sku && <div className="pdp__sku">{product.sku}</div>}
+            <h1>{product.name}</h1>
+            {category && <p className="pdp__cat">{category.name}</p>}
+            {product.summary && <p className="pdp__lead">{product.summary}</p>}
+
+            {paragraphs.map((p, i) => (
+              <p key={i} className="pdp__para">
+                {p}
+              </p>
+            ))}
+
+            <a className="btn btn--red" href={enquireHref}>
+              Enquire about this product <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        {specs.length > 0 && (
+          <div className="pdp__specs">
+            <h2>Specification</h2>
+            <table>
+              <tbody>
+                {specs.map((row, i) => (
+                  <tr key={i}>
+                    <th>{row[0]}</th>
+                    <td>{row[1]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="pdp__note">
+              Specifications are indicative. Contact K2V ENTERPRISE to confirm the exact
+              variant, pack size and lead time for your order.
+            </p>
+          </div>
+        )}
+
+        <Link href="#/products" className="pdp__back">
+          ← Back to all products
+        </Link>
       </div>
     </main>
   );
