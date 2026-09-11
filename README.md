@@ -18,7 +18,9 @@ Public pages: home one-pager (every published product is listed in the
 filtered browse of the same products.
 
 - `/` — customer-facing site (home + products catalogue)
-- `/admin/` — content editor (no login — see the security note)
+- `/admin/` — content editor. Logs in for real if you deploy the `/api` backend
+  described below; otherwise it runs in **local-only mode** automatically — see
+  "Admin authentication".
 
 Built with **React + Vite**.
 
@@ -43,13 +45,14 @@ npm run preview    # serve the production build
 | | |
 |---|---|
 | **Source of truth** | `src/content/defaults.js` — the built-in/seed content |
-| **Live edits** | saved to `localStorage` under `k2v_site_content`, per browser |
-| **Publishing** | export JSON from `/admin/` → **Import / export**, paste into `defaults.js`, bump `CONTENT_VERSION`, commit |
+| **Live edits** | saved to `localStorage` under `k2v_site_content`, per browser — and, if `/api` is deployed, synced to the server so every visitor sees it (see "Admin authentication") |
+| **Publishing (no backend)** | export JSON from `/admin/` → **Import / export**, paste into `defaults.js`, bump `CONTENT_VERSION`, commit |
 
-Edits are **per browser** — what the client changes on their laptop is not what a
-visitor sees. That is the correct behaviour for a mock and the one thing to be
-explicit about in the demo. Bumping `CONTENT_VERSION` makes returning browsers
-pick up new seed content instead of their stale local copy.
+Without the `/api` backend, edits are **per browser** — what the client changes
+on their laptop is not what a visitor sees. That is the mock's current, deployed
+behaviour and the one thing to be explicit about in a demo. Bumping
+`CONTENT_VERSION` makes returning browsers pick up new seed content instead of
+their stale local copy.
 
 If `localStorage` is unavailable (private mode, sandboxed preview) the editor
 falls back to memory — it still works, it just forgets on reload.
@@ -96,14 +99,56 @@ plans. Vite is configured with `base: "./"` so the build works at any path
 
 ---
 
-## Security note — read this before showing the client
+## Admin authentication
 
-`/admin/` has **no authentication**. It is publicly reachable and anyone can open
-it and edit their own browser's copy of the content. On a static host there is no
-way around that; it exists so the demo feels like a real product. Real
-authentication, roles and audit logging arrive with the Wagtail build.
+`/admin/` works two ways, chosen automatically at load:
 
-Do not put anything confidential into this mock.
+- **No `/api` reachable (GitHub Pages, or `npm run dev` with no backend running)** —
+  runs in **local-only mode**: no login, edits save to `localStorage` in that
+  browser only. This is the mock behaviour and is what's deployed today.
+- **`/api` answers the contract below** — real login. First visit to `/admin/`
+  with no admin account yet shows a one-time setup screen; after that, a login
+  screen gated by a server-verified session. Content read/write also moves to
+  the server at that point (`GET`/`POST /api/content`), so a logged-in edit
+  publishes for every visitor instead of staying in one browser.
+
+The frontend (`src/admin/auth.jsx`, `src/admin/api.js`, the sync layer in
+`src/store.js`) is already built against this contract — any backend that
+implements it works without frontend changes:
+
+```
+GET  /api/auth/status   -> { hasAdmin: boolean, authenticated: boolean }
+POST /api/auth/setup    { username, password } -> sets session cookie
+                            (must refuse once hasAdmin is already true)
+POST /api/auth/login    { username, password } -> sets session cookie, or 401
+POST /api/auth/logout   -> clears the session cookie
+GET  /api/content       -> the full content JSON (public, no auth required)
+POST /api/content       body: full content JSON
+                            -> 200 if the session is valid, 401 otherwise
+```
+
+Requirements for whichever backend implements it (PHP or Node — both work,
+pick whichever your host supports):
+
+- Single admin account, created once via `/auth/setup`.
+- Password hashed (bcrypt / `password_hash()` — never stored or compared in
+  plaintext).
+- Session token issued as a **JWT in an `HttpOnly`, `Secure`, `SameSite=Strict`
+  cookie** — never returned in the response body or readable from JS, so an
+  XSS bug can't steal it. Short expiry (a couple of hours) is enough for a
+  single-editor tool.
+- Rate-limit `/auth/login` server-side (the React login form already locks
+  itself out client-side after 5 failed attempts, but that's UX, not
+  security — the real limit has to be enforced on the server).
+- `/api/content` `POST` checks the session cookie before writing anything.
+
+`npm run verify` includes `scripts/verify-auth.mjs`, which drives the real
+`AuthGate`/`Login`/`Setup` components in jsdom against an in-memory fake
+backend implementing this exact contract — useful as executable documentation
+of the expected request/response shapes while building the real one.
+
+Until a backend is deployed: do not put anything confidential into this mock,
+and treat `/admin/` as publicly editable (per-browser only, as above).
 
 ---
 
@@ -140,12 +185,14 @@ index.html                  public app entry (Vite)
 admin/index.html            admin app entry (Vite)
 src/
   content/defaults.js       seed content — the single source of truth
-  store.js                  localStorage load/save/subscribe/export/import
+  store.js                  content store: localStorage + optional /api sync
   theme.js                  applies the theme object to CSS custom properties
   public/                   the customer-facing app (App.jsx + sections)
-  admin/                    the CMS (Admin.jsx, fields.jsx)
+  admin/                    the CMS (Admin.jsx, fields.jsx, auth.jsx, api.js)
   styles/                   site.css, admin.css
 scripts/gen-content-json.mjs  regenerates data/content.json from defaults
+scripts/verify.mjs            headless check of the public + admin content loop
+scripts/verify-auth.mjs       headless check of the login/onboarding flow
 data/content.json           flat content model for the CRX import
 .github/workflows/static.yml  build + deploy to GitHub Pages
 ```

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useContent, exportContent, importContent, resetContent, STORAGE_KEY } from "../store.js";
+import { useContent, useSyncState, exportContent, importContent, resetContent, STORAGE_KEY } from "../store.js";
 import { FONT_PRESETS } from "../content/defaults.js";
+import { useAuthContext } from "./auth.jsx";
 import {
   Group, Text, Area, Select, Toggle, Color, Num, ImageInput, Repeater, StringList, PairList, Field, at,
 } from "./fields.jsx";
@@ -28,11 +29,19 @@ const SECTIONS = [
 
 export function Admin() {
   const content = useContent();
+  const sync = useSyncState();
+  const { mode, username, logout } = useAuthContext();
   const [section, setSection] = useState("theme");
   const [showPreview, setShowPreview] = useState(true);
 
   return (
-    <div className={`cms ${showPreview ? "cms--split" : ""}`}>
+    <>
+      {mode === "local-only" && (
+        <div className="authbanner">
+          No login backend found — running in local-only mode. Changes save to this browser only; see README.md “Admin authentication” to deploy the real login.
+        </div>
+      )}
+      <div className={`cms ${showPreview ? "cms--split" : ""}`}>
       <aside className="cms__nav">
         <div className="cms__brand">
           <span className="cms__mark">{content.identity.logoText || "K2V"}</span>
@@ -57,13 +66,23 @@ export function Admin() {
           <a className="ghost" href="../" target="_blank" rel="noreferrer">
             Open site ↗
           </a>
-          <p>Changes save to this browser instantly. Use Import / export to keep them.</p>
+          {mode === "server" && (
+            <button className="ghost" onClick={logout}>
+              Log out{username ? ` (${username})` : ""}
+            </button>
+          )}
+          <p>
+            {mode === "server"
+              ? "Changes publish to the live site."
+              : "Changes save to this browser instantly. Use Import / export to keep them."}
+          </p>
         </div>
       </aside>
 
       <main className="cms__main">
         <header className="cms__head">
           <h1>{SECTIONS.find((s) => s.id === section)?.label}</h1>
+          <SyncBadge sync={sync} mode={mode} />
         </header>
         <div className="cms__panel">
           <Panel section={section} content={content} />
@@ -76,8 +95,34 @@ export function Admin() {
           <iframe title="Site preview" src="../" />
         </aside>
       )}
-    </div>
+      </div>
+    </>
   );
+}
+
+function SyncBadge({ sync, mode }) {
+  if (mode === "local-only") return null;
+  const label =
+    sync.saveState === "saving"
+      ? "Saving…"
+      : sync.saveState === "saved"
+      ? "Saved to server"
+      : sync.saveState === "unauthorized"
+      ? "Not logged in — saved to this browser only"
+      : sync.saveState === "offline"
+      ? "Server unreachable — saved to this browser only"
+      : sync.source === "server"
+      ? "Up to date"
+      : "Loaded from this browser";
+  const tone =
+    sync.saveState === "saved" || (sync.saveState === "idle" && sync.source === "server")
+      ? "ok"
+      : sync.saveState === "saving"
+      ? "busy"
+      : sync.saveState === "unauthorized" || sync.saveState === "offline"
+      ? "warn"
+      : "muted";
+  return <span className={`syncbadge syncbadge--${tone}`}>{label}</span>;
 }
 
 function Panel({ section, content }) {
